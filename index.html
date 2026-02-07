@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Special Valentine ❤️</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #d62828;
+        --secondary: #f77f00;
+        --bg: #fff0f3;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent; /* Biar gak ada kotak biru pas klik di HP */
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        font-family: "Montserrat", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Tampilan Surat */
+      #envelope-wrapper {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .envelope {
+        font-size: clamp(80px, 20vw, 120px); /* Ukuran fleksibel */
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      /* Konten Utama */
+      #main-content {
+        display: none;
+        opacity: 0;
+        transition: 1.5s;
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2rem, 8vw, 3.5rem); /* Teks nyesuaiin layar */
+        color: var(--primary);
+      }
+
+      /* Galeri Foto Tumpuk - Responsif HP */
+      .photo-stack {
+        position: relative;
+        width: 100%;
+        max-width: 250px; /* Ukuran ideal di HP */
+        height: 320px;
+        margin: 40px auto;
+        cursor: pointer;
+      }
+
+      .photo-stack img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 8px solid white;
+        border-bottom: 40px solid white;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border-radius: 5px;
+      }
+
+      /* Rotasi default agar estetik */
+      .photo-stack img:nth-child(1) {
+        transform: rotate(-5deg);
+      }
+      .photo-stack img:nth-child(2) {
+        transform: rotate(5deg);
+      }
+      .photo-stack img:nth-child(3) {
+        transform: rotate(0deg);
+        z-index: 5;
+      }
+
+      /* Efek menyebar di Laptop (Hover) */
+      @media (min-width: 768px) {
+        .photo-stack:hover img:nth-child(1) {
+          transform: rotate(-15deg) translateX(-60px);
+        }
+        .photo-stack:hover img:nth-child(2) {
+          transform: rotate(15deg) translateX(60px);
+        }
+        .photo-stack:hover img:nth-child(3) {
+          transform: scale(1.1);
+          z-index: 10;
+        }
+      }
+
+      /* Efek menyebar di HP (Saat di-tap) */
+      .photo-stack.active img:nth-child(1) {
+        transform: rotate(-15deg) translateX(-45px);
+      }
+      .photo-stack.active img:nth-child(2) {
+        transform: rotate(15deg) translateX(45px);
+      }
+      .photo-stack.active img:nth-child(3) {
+        transform: scale(1.05);
+        z-index: 10;
+      }
+
+      .message {
+        background: white;
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        line-height: 1.6;
+        font-size: 0.95rem;
+        color: #444;
+        margin: 20px auto;
+        width: 100%;
+      }
+
+      .heart {
+        position: fixed;
+        top: -10vh;
+        font-size: 20px;
+        animation: fall linear forwards;
+        z-index: -1;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(110vh) rotate(360deg);
+        }
+      }
+
+      button.btn-love {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-weight: 600;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        width: 80%;
+        max-width: 300px; /* Tombol lebar di HP agar mudah di-klik */
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="musik" loop>
+      <source src="lagu.mp4" type="video/mp4" />
+    </audio>
+
+    <div id="envelope-wrapper" onclick="openValentine()">
+      <div class="envelope">💌</div>
+      <p
+        style="
+          position: absolute;
+          bottom: 30%;
+          color: var(--primary);
+          font-weight: 600;
+        "
+      >
+        Tap surat ini buat kamu...
+      </p>
+    </div>
+
+    <div id="main-content">
+      <h1>Happy Valentine's Day, Sayang ❤️</h1>
+
+      <div class="photo-stack">
+        <img src="poto3.jpeg" alt="Memory 1" />
+        <img src="poto4.jpeg" alt="Memory 2" />
+        <img src="poto3.jpeg" alt="Memory 3" />
+      </div>
+
+      <div class="message">
+        "Kadang aku mikir, beruntung banget ya aku bisa punya kamu. Di hari
+        kasih sayang ini, aku cuma mau bilang makasih udah jadi bagian terindah
+        dalam hidupku. <br /><br />
+        <strong>Love you today, tomorrow, and forever.</strong>"
+      </div>
+
+      <button class="btn-love" onclick="extraLove()">
+        Klik ini buat makin sayang! 💖
+      </button>
+      <p
+        id="extra-msg"
+        style="
+          margin-top: 20px;
+          display: none;
+          color: var(--primary);
+          font-weight: bold;
+        "
+      >
+        Ciyeee! Makin sayang yaa sama akuu? 🥰
+      </p>
+    </div>
+
+    <script>
+      function openValentine() {
+        const audio = document.getElementById("musik");
+        audio.currentTime = 45;
+
+        // Memastikan volume penuh dan mulai putar
+        audio.volume = 1.0;
+        audio.play().catch((error) => {
+          console.log("Musik tertahan browser, tapi tetap jalan...");
+        });
+
+        // Sembunyikan Amplop
+        document.getElementById("envelope-wrapper").style.opacity = "0";
+        setTimeout(() => {
+          document.getElementById("envelope-wrapper").style.display = "none";
+
+          // Tampilkan Konten Utama
+          const main = document.getElementById("main-content");
+          main.style.display = "block";
+          setTimeout(() => {
+            main.style.opacity = "1";
+          }, 50);
+
+          // Jalankan hujan hati
+          setInterval(createHeart, 200);
+        }, 500);
+      }
+
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = ["❤️", "💖", "🌹", "✨"][
+          Math.floor(Math.random() * 4)
+        ];
+        heart.style.left = Math.random() * 100 + "vw";
+        const duration = Math.random() * 3 + 2;
+        heart.style.animationDuration = duration + "s";
+        heart.style.opacity = Math.random();
+        document.body.appendChild(heart);
+        setTimeout(() => {
+          heart.remove();
+        }, duration * 1000);
+      }
+
+      function extraLove() {
+        document.getElementById("extra-msg").style.display = "block";
+        // Bikin hujan hati makin deras
+        for (let i = 0; i < 20; i++) {
+          setTimeout(createHeart, i * 50);
+        }
+      }
+
+      // Logika klik/tap foto untuk HP
+      document
+        .querySelector(".photo-stack")
+        .addEventListener("click", function () {
+          this.classList.toggle("active");
+        });
+    </script>
+  </body>
+</html>
